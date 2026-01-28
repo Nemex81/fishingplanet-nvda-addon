@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="../style.css" media="screen">
+<title>Golden Cursor 6.1.1</title>
+</head>
+<body>
+<h1>Golden Cursor</h1>
+<ul>
+<li>Autori: salah atair, Joseph Lee</li>
+<li>Scarica la <a href="https://addons.nvda-project.org/files/get.php?file=gc">versione stabile</a></li>
+<li>NVDA compatibility: 2021.3 and beyond</li>
+</ul>
+<p>Questo add-on permette di spostare il mouse con la tastiera e di salvare le
+posizioni del mouse per le applicazioni.</p>
+<h2>Comandi disponibili</h2>
+<ul>
+<li>Control+NVDA+L: view saved mouse positions for an application, if any. You
+  can also assign gestures to these positions from this dialog. When
+  pressing the assigned gesture, a left click will be performed in the saved
+  position.</li>
+<li>Shift+NVDA+l: Apre una finestra di dialogo per etichettare e salvare la
+  posizione corrente del mouse.</li>
+<li>Windows+NVDA+C: Cambia l'unità di misura per il movimento del mouse.</li>
+<li>Windows+NVDA+R: commuta tra le due  restrizioni del mouse.</li>
+<li>Windows+nvda+s: attiva/disattiva la vocalizzazione della posizione del
+  mouse in pixel.</li>
+<li>Windows+NVDA+J: Sposta il mouse ad una coordinata specifica X Y.</li>
+<li>Windows+NVDA+P: Dice la posizione del mouse.</li>
+<li>Windows+NVDA+M: attiva o disattiva il movimento del mouse tramite i tasti
+  freccia.</li>
+<li>Windows+NVDA+frecce (o solo frecce se è attiva la funzione movimento del
+  mouse tramite tasti freccia: sposta il mouse.</li>
+</ul>
+<p>Nota: questi tasti possono essere riassegnati alla voce gesti e tasti di
+immissione nel menu preferenze di NVDA alla categoria Golden Cursor.</p>
+<h2>Note</h2>
+<ul>
+<li>Se si condividono le posizioni (tag), la persona che le riceve deve
+  utilizzare la stessa risoluzione dello schermo.</li>
+<li>Per una compatibilità ottimale, si consiglia di ingrandire la finestra
+  servendosi della combinazione windows-freccia su.</li>
+<li>Quando si condividono le posizioni, eventuali etichette esistenti devono
+  essere rinominate.</li>
+<li>I formati usati per salvare le posizioni mouse nelle versioni 1.x e 2.x
+  sono incompatibili.</li>
+<li>Per eseguire le funzioni che richiedono l'uso dei tasti freccia,
+  disattivare la funzione movimento del mouse tramite tasti freccia.</li>
+<li>Quando si cancellano le posizioni memorizzate, se non sono rimaste
+  posizioni salvate, verranno eliminate le posizioni per l'applicazione.</li>
+</ul>
+<h2>Version 6.1</h2>
+<ul>
+<li>Requires NVDA 2021.3 or later.</li>
+<li>Now, you can assign shortcuts for saved positions from the positions
+  list. When pressing a shortcut, a left click will be performed for the
+  position.</li>
+</ul>
+<h2>Version 5.0</h2>
+<ul>
+<li>Modernized add-on source code to make it compatible with NVDA 2021.1.</li>
+<li>Resolved many coding style issues and potential bugs with Flake8.</li>
+</ul>
+<h2>Novità nella versione 4.0</h2>
+<ul>
+<li>Richiede NVDA 2019.3 o superiore.</li>
+<li>La finestra di dialogo Impostazioni di Golden Cursor, presente nel menu
+  Preferenze di NVDA, è stata sostituita dalla categoria Golden Cursor nella
+  finestra Impostazioni di NVDA.</li>
+</ul>
+<h2>Novità nella versione 3.3</h2>
+<ul>
+<li>Modifiche interne per supportare le versioni future di NVDA.</li>
+</ul>
+<h2>Novità nella versione 3.2</h2>
+<ul>
+<li>Compatibile con NVDA 2018.3 (wxPython 4).</li>
+</ul>
+<h2>Novità nella versione 3.0</h2>
+<ul>
+<li>Se si utilizza NVDA 2018.2, le impostazioni del componente aggiuntivo si
+  trovano nella nuova schermata multicategoria delle impostazioni di NVDA,
+  alla voce Golden Cursor.</li>
+</ul>
+<h2>Novità nella versione 2.1</h2>
+<ul>
+<li>Risolto un problema di decodifica unicode quando si elimina il nome di un
+  tag.</li>
+<li>Non vengono create più istanze all'apertura di varie finestre di dialogo
+  del componente aggiuntivo.</li>
+<li>Migliorato l'aspetto dell'elenco posizioni mouse e della finestra "vai a
+  posizione".</li>
+</ul>
+<h2>Novità nella versione 2.0</h2>
+<ul>
+<li>Richiede NVDA 2017.3 o superiore.</li>
+<li>Il Formato del file contenente le posizioni è incompatibile con la
+  versione 1.x. Se viene rilevato un formato precedente, le posizioni
+  verranno migrate al nuovo formato durante l'installazione.</li>
+<li>Aggiunta una nuova finestra di dialogo chiamata Golden Cursor nel menu
+  preferenze di NVDA  per configurare l'unità di misura per il movimento del
+  mouse e la lettura della posizione del mouse mentre si sposta.</li>
+<li>Modificati diversi messaggi di questo componente aggiuntivo.</li>
+<li>Durante la modifica delle impostazioni, non si udirà più il segnale
+  acustico di attivazione e disattivazione.</li>
+<li>Ora è disponibile una nuova funzione,  movimento del mouse tramite frecce
+  ; in questo modo sarà possibile spostare il puntatore direttamente con i
+  tasti frecci.</li>
+<li>Modifiche alla finestra elenco posizioni, che comprendono un nuovo nome
+  (ora si chiama posizioni mouse) e layout, la visualizzazione delle
+  coordinate mouse per un'etichetta e l'inclusione del nome dell'app attiva
+  come parte del titolo.</li>
+<li>Dalle impostazioni posizione mouse, premendo invio su un'etichetta, il
+  mouse si sposterà alla posizione salvata.</li>
+<li>Quando si rinomina una posizione mouse, verrà mostrato un messaggio di
+  errore nel caso in cui esista già un'etichetta con lo stesso nome.</li>
+<li>Quando si cancellano o si puliscono i settaggi delle posizioni mouse, sarà
+  necessario confermare con un sì.</li>
+<li>Cambiamenti alla funzione "vai a posizione", tra cui un nuovo nome (ora si
+  chiama Nuova posizione del mouse) e la capacità di inserire le coordinate
+  X e Y separatamente o utilizzando i tasti freccia su o giù.</li>
+<li>La finestra di dialogo mostrata quando si salva la posizione corrente del
+  mouse ora mostra le coordinate per la posizione corrente del mouse.</li>
+<li>When saving positions, resolved an issue where NVDA may play error tones
+  if the positions folder does not exist.</li>
+</ul>
+<h2>Novità nella versione 1.4</h2>
+<ul>
+<li>Rimosse le dipendenze Win32Api per rendere il componente compatibile con
+  versioni passate e future di NVDA.</li>
+</ul>
+<h2>Novità nella versione 1.0</h2>
+<ul>
+<li>Versione iniziale.</li>
+</ul>
+<p>[[!tag stable dev]]</p>
+</body>
+</html>
