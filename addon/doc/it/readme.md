@@ -1,135 +1,108 @@
-# Golden Cursor #
+# FishingPlanet OCR - Addon NVDA
 
-* Autori: salah atair, Joseph Lee
-* Scarica la [versione stabile][1]
-* NVDA compatibility: 2021.3 and beyond
+## Descrizione
 
-Questo add-on permette di spostare il mouse con la tastiera e di salvare le
-posizioni del mouse per le applicazioni.
+Addon NVDA per il gioco FishingPlanet che integra un sistema OCR (riconoscimento ottico caratteri) intelligente con zone predefinite dello schermo. Permette ai giocatori non vedenti di ricevere informazioni visive automaticamente tramite sintesi vocale.
 
-## Comandi disponibili
+## Requisiti
 
-* Control+NVDA+L: view saved mouse positions for an application, if any. You
-  can also assign gestures to these positions from this dialog. When
-  pressing the assigned gesture, a left click will be performed in the saved
-  position.
-* Shift+NVDA+l: Apre una finestra di dialogo per etichettare e salvare la
-  posizione corrente del mouse.
-* Windows+NVDA+C: Cambia l'unità di misura per il movimento del mouse.
-* Windows+NVDA+R: commuta tra le due  restrizioni del mouse.
-* Windows+nvda+s: attiva/disattiva la vocalizzazione della posizione del
-  mouse in pixel.
-* Windows+NVDA+J: Sposta il mouse ad una coordinata specifica X Y.
-* Windows+NVDA+P: Dice la posizione del mouse.
-* Windows+NVDA+M: attiva o disattiva il movimento del mouse tramite i tasti
-  freccia.
-* Windows+NVDA+frecce (o solo frecce se è attiva la funzione movimento del
-  mouse tramite tasti freccia: sposta il mouse.
+- NVDA 2021.1 o superiore
+- Windows 10/11 con OCR lingua italiana installata
+- FishingPlanet installato
 
-Nota: questi tasti possono essere riassegnati alla voce gesti e tasti di
-immissione nel menu preferenze di NVDA alla categoria Golden Cursor.
+## Comandi Principali
 
-## Note
+### Controllo OCR
 
-* Se si condividono le posizioni (tag), la persona che le riceve deve
-  utilizzare la stessa risoluzione dello schermo.
-* Per una compatibilità ottimale, si consiglia di ingrandire la finestra
-  servendosi della combinazione windows-freccia su.
-* Quando si condividono le posizioni, eventuali etichette esistenti devono
-  essere rinominate.
-* I formati usati per salvare le posizioni mouse nelle versioni 1.x e 2.x
-  sono incompatibili.
-* Per eseguire le funzioni che richiedono l'uso dei tasti freccia,
-  disattivare la funzione movimento del mouse tramite tasti freccia.
-* Quando si cancellano le posizioni memorizzate, se non sono rimaste
-  posizioni salvate, verranno eliminate le posizioni per l'applicazione.
+- **NVDA+ALT+L**: Attiva o disattiva la scansione OCR automatica
+  - Beep alto (444 Hz): OCR avviato
+  - Beep basso (222 Hz): OCR fermato
 
-## Version 6.1
+### Zone Predefinite
 
-* Requires NVDA 2021.3 or later.
-* Now, you can assign shortcuts for saved positions from the positions
-  list. When pressing a shortcut, a left click will be performed for the
-  position.
+- **NVDA+ALT+1**: Scansione schermo completo (tutto lo schermo)
+- **NVDA+ALT+2**: Scansione metà inferiore (ideale durante la pesca)
+- **NVDA+ALT+3**: Scansione metà destra (ideale nel negozio)
+- **NVDA+ALT+4**: Scansione centro schermo (menu e dialoghi)
 
-## Version 5.0
+### Altri Comandi
 
-* Modernized add-on source code to make it compatible with NVDA 2021.1.
-* Resolved many coding style issues and potential bugs with Flake8.
+- **NVDA+ALT+C**: Centra il mouse (raddrizza visuale)
+- **NVDA+H**: Sistema di aiuto FishingPlanet
 
-## Novità nella versione 4.0
+## Installazione
 
-* Richiede NVDA 2019.3 o superiore.
-* La finestra di dialogo Impostazioni di Golden Cursor, presente nel menu
-  Preferenze di NVDA, è stata sostituita dalla categoria Golden Cursor nella
-  finestra Impostazioni di NVDA.
+1. Scaricare il file `.nvda-addon` dalla sezione Releases
+2. Aprire il file (NVDA lo riconoscerà automaticamente)
+3. Confermare l'installazione quando richiesto
+4. Riavviare NVDA se necessario
 
-## Novità nella versione 3.3
+## Utilizzo Tipico
 
-* Modifiche interne per supportare le versioni future di NVDA.
+### Durante la Pesca
 
-## Novità nella versione 3.2
+1. Avviare FishingPlanet e raggiungere la schermata di pesca
+2. Premere **NVDA+ALT+2** per impostare la zona "metà inferiore"
+3. Premere **NVDA+ALT+L** per avviare la scansione OCR
+4. NVDA leggerà automaticamente i messaggi che appaiono nella parte bassa dello schermo
+5. Premere **NVDA+ALT+L** per fermare quando non più necessario
 
-* Compatibile con NVDA 2018.3 (wxPython 4).
+### Nel Negozio
 
-## Novità nella versione 3.0
+1. Aprire il negozio nel gioco
+2. Premere **NVDA+ALT+3** per impostare la zona "metà destra"
+3. Premere **NVDA+ALT+L** per avviare la scansione
+4. Navigare tra i prodotti: NVDA leggerà le descrizioni che appaiono a destra
 
-* Se si utilizza NVDA 2018.2, le impostazioni del componente aggiuntivo si
-  trovano nella nuova schermata multicategoria delle impostazioni di NVDA,
-  alla voce Golden Cursor.
+### Menu e Dialoghi
 
-## Novità nella versione 2.1
+1. Premere **NVDA+ALT+4** per la zona "centro schermo"
+2. Avviare OCR con **NVDA+ALT+L**
+3. I messaggi centrali verranno letti automaticamente
 
-* Risolto un problema di decodifica unicode quando si elimina il nome di un
-  tag.
-* Non vengono create più istanze all'apertura di varie finestre di dialogo
-  del componente aggiuntivo.
-* Migliorato l'aspetto dell'elenco posizioni mouse e della finestra "vai a
-  posizione".
+## Configurazione Avanzata
 
-## Novità nella versione 2.0
+Le impostazioni OCR sono memorizzate nella configurazione NVDA e includono:
 
-* Richiede NVDA 2017.3 o superiore.
-* Il Formato del file contenente le posizioni è incompatibile con la
-  versione 1.x. Se viene rilevato un formato precedente, le posizioni
-  verranno migrate al nuovo formato durante l'installazione.
-* Aggiunta una nuova finestra di dialogo chiamata Golden Cursor nel menu
-  preferenze di NVDA  per configurare l'unità di misura per il movimento del
-  mouse e la lettura della posizione del mouse mentre si sposta.
-* Modificati diversi messaggi di questo componente aggiuntivo.
-* Durante la modifica delle impostazioni, non si udirà più il segnale
-  acustico di attivazione e disattivazione.
-* Ora è disponibile una nuova funzione,  movimento del mouse tramite frecce
-  ; in questo modo sarà possibile spostare il puntatore direttamente con i
-  tasti frecci.
-* Modifiche alla finestra elenco posizioni, che comprendono un nuovo nome
-  (ora si chiama posizioni mouse) e layout, la visualizzazione delle
-  coordinate mouse per un'etichetta e l'inclusione del nome dell'app attiva
-  come parte del titolo.
-* Dalle impostazioni posizione mouse, premendo invio su un'etichetta, il
-  mouse si sposterà alla posizione salvata.
-* Quando si rinomina una posizione mouse, verrà mostrato un messaggio di
-  errore nel caso in cui esista già un'etichetta con lo stesso nome.
-* Quando si cancellano o si puliscono i settaggi delle posizioni mouse, sarà
-  necessario confermare con un sì.
-* Cambiamenti alla funzione "vai a posizione", tra cui un nuovo nome (ora si
-  chiama Nuova posizione del mouse) e la capacità di inserire le coordinate
-  X e Y separatamente o utilizzando i tasti freccia su o giù.
-* La finestra di dialogo mostrata quando si salva la posizione corrente del
-  mouse ora mostra le coordinate per la posizione corrente del mouse.
-* When saving positions, resolved an issue where NVDA may play error tones
-  if the positions folder does not exist.
+- **Intervallo scansione**: Tempo tra una scansione e l'altra (default: varia per zona)
+- **Threshold similarità**: Sensibilità al rilevamento cambiamenti testo (default: 0.5)
+- **Crop percentuali**: Definizione precise delle zone (modificabile manualmente)
 
-## Novità nella versione 1.4
+Per accedere: le impostazioni sono nella sezione `[fishingplanet_ocr]` del file di configurazione NVDA.
 
-* Rimosse le dipendenze Win32Api per rendere il componente compatibile con
-  versioni passate e future di NVDA.
+## Risoluzione Problemi
 
-## Novità nella versione 1.0
+### L'OCR non legge nulla
 
-* Versione iniziale.
+- Verificare che Windows OCR sia installato (Impostazioni > Ora e lingua > Lingua > Italiano > Opzioni > OCR)
+- Controllare che FishingPlanet sia in modalità finestra o borderless (non fullscreen esclusivo)
+- Provare ad aumentare l'intervallo di scansione se il testo cambia molto rapidamente
 
-[[!tag stable dev]]
+### NVDA legge troppo spesso lo stesso testo
 
-[1]: https://addons.nvda-project.org/files/get.php?file=gc
+- Il threshold di similarità può essere troppo basso
+- Modificare il valore `threshold` nella configurazione (valori più alti = meno ripetizioni)
 
-[2]: https://addons.nvda-project.org/files/get.php?file=gc-dev
+### Rallentamenti o lag
+
+- L'OCR consuma risorse: provare ad aumentare l'intervallo di scansione
+- Utilizzare zone più piccole invece dello schermo completo
+- Fermare l'OCR quando non necessario
+
+## Note sulla Performance
+
+- **Uso memoria**: ~50-100 MB aggiuntivi durante OCR attivo
+- **Uso CPU**: 5-10% medio (dipende dalla dimensione zona e intervallo)
+- **Latenza**: ~200-500ms per scansione (dipende da risoluzione zona)
+
+## Crediti
+
+Basato sul sistema OCR di LION addon (vortex1024)
+
+Autore: Luca Profita (Nemex81)  
+Email: nemex1981@gmail.com  
+Versione: 0.2.0
+
+## Licenza
+
+GPL v2 (compatibile con NVDA)
