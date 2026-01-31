@@ -136,24 +136,48 @@ class AppModule(appModuleHandler.AppModule):
 
 	def cropRectLTWH(self, baseRect):
 		"""
-		Applica i valori di crop al rettangolo base.
+		Applica i valori di crop al rettangolo base con validazione.
 		
 		Args:
 			baseRect: Rettangolo base locationHelper.RectLTWH
 		
 		Returns:
-			locationHelper.RectLTWH: Rettangolo con crop applicato
+			locationHelper.RectLTWH: Rettangolo con crop applicato, o None se non valido
 		"""
 		cfg = config.conf["fishingplanet_ocr"]
 		
-		if baseRect is None:
-			return locationHelper.RectLTWH(0, 0, 0, 0)
+		if baseRect is None or baseRect.width <= 0 or baseRect.height <= 0:
+			import logHandler
+			logHandler.log.warning("FishingPlanet: baseRect non valido o dimensioni zero")
+			return None
+		
+		# Clamp crop values per sicurezza
+		cropLeft = max(0, min(100, cfg['cropLeft']))
+		cropRight = max(0, min(100, cfg['cropRight']))
+		cropUp = max(0, min(100, cfg['cropUp']))
+		cropDown = max(0, min(100, cfg['cropDown']))
+		
+		# Verifica che i crop combinati non superino 100%
+		if cropLeft + cropRight >= 100:
+			import logHandler
+			logHandler.log.warning(f"FishingPlanet: cropLeft ({cropLeft}) + cropRight ({cropRight}) >= 100%, zona non valida")
+			return None
+		if cropUp + cropDown >= 100:
+			import logHandler
+			logHandler.log.warning(f"FishingPlanet: cropUp ({cropUp}) + cropDown ({cropDown}) >= 100%, zona non valida")
+			return None
 		
 		# Sommare offset alla posizione base, non moltiplicare tutto
-		newLeft = int(baseRect.left + (baseRect.width * cfg['cropLeft'] / 100.0))
-		newTop = int(baseRect.top + (baseRect.height * cfg['cropUp'] / 100.0))
-		newWidth = int(baseRect.width * (100 - cfg['cropLeft'] - cfg['cropRight']) / 100.0)
-		newHeight = int(baseRect.height * (100 - cfg['cropUp'] - cfg['cropDown']) / 100.0)
+		newLeft = int(baseRect.left + (baseRect.width * cropLeft / 100.0))
+		newTop = int(baseRect.top + (baseRect.height * cropUp / 100.0))
+		newWidth = int(baseRect.width * (100 - cropLeft - cropRight) / 100.0)
+		newHeight = int(baseRect.height * (100 - cropUp - cropDown) / 100.0)
+		
+		# Validazione finale: assicura dimensioni minime valide
+		if newWidth <= 0 or newHeight <= 0:
+			import logHandler
+			logHandler.log.warning(f"FishingPlanet: Area crop risultante non valida (width={newWidth}, height={newHeight})")
+			return None
 		
 		return locationHelper.RectLTWH(newLeft, newTop, newWidth, newHeight)
 
@@ -177,11 +201,29 @@ class AppModule(appModuleHandler.AppModule):
 		Esegue una singola scansione OCR sulla zona attiva.
 		"""
 		try:
+			# Verifica risoluzione schermo valida
+			if self.resX <= 0 or self.resY <= 0:
+				import logHandler
+				logHandler.log.warning(f"FishingPlanet: Risoluzione schermo non valida (resX={self.resX}, resY={self.resY})")
+				return
+			
 			# Calcola area da scansionare
 			baseRect = locationHelper.RectLTWH(0, 0, self.resX, self.resY)
 			scanRect = self.cropRectLTWH(baseRect)
 			
+			# Verifica che scanRect sia valido
+			if scanRect is None:
+				import logHandler
+				logHandler.log.warning("FishingPlanet: Area di scansione non valida, salto OCR")
+				return
+			
 			left, top, width, height = scanRect
+			
+			# Doppia verifica dimensioni valide
+			if width <= 0 or height <= 0:
+				import logHandler
+				logHandler.log.warning(f"FishingPlanet: Dimensioni scan non valide (width={width}, height={height})")
+				return
 			
 			# Inizializza recognizer
 			self.recog = contentRecog.uwpOcr.UwpOcr()
@@ -309,13 +351,39 @@ class AppModule(appModuleHandler.AppModule):
 		gesture="kb:nvda+alt+c"
 	)
 	def script_FP_centerMouse(self, gesture):
-		# Centro del monitor principale (display 0)
-		x, y, w, h = wx.Display(0).GetGeometry()
-		centerX = x + (w // 2)
-		centerY = y + (h // 2)
-
-		winUser.setCursorPos(centerX, centerY)
-		ui.message(_("centrato"))
+		"""
+		Centra il mouse al centro del display primario con gestione errori.
+		"""
+		try:
+			# Verifica che ci siano display disponibili
+			displayCount = wx.Display.GetCount()
+			if displayCount <= 0:
+				import logHandler
+				logHandler.log.warning("FishingPlanet: Nessun display disponibile")
+				ui.message(_("Errore: nessun display disponibile"))
+				return
+			
+			# Usa il display primario (indice 0)
+			display = wx.Display(0)
+			x, y, w, h = display.GetGeometry()
+			
+			# Verifica dimensioni valide
+			if w <= 0 or h <= 0:
+				import logHandler
+				logHandler.log.warning(f"FishingPlanet: Dimensioni display non valide (w={w}, h={h})")
+				ui.message(_("Errore: dimensioni display non valide"))
+				return
+			
+			centerX = x + (w // 2)
+			centerY = y + (h // 2)
+			
+			winUser.setCursorPos(centerX, centerY)
+			ui.message(_("centrato"))
+			
+		except Exception as e:
+			import logHandler
+			logHandler.log.error(f"FishingPlanet script_FP_centerMouse error: {e}", exc_info=True)
+			ui.message(_("Errore nel centrare il mouse"))
 
 	def terminate(self):
 		"""
