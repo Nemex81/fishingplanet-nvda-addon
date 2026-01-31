@@ -87,7 +87,7 @@ ZONE_PROFILES = {
 
 class AppModule(appModuleHandler.AppModule):
 
-	#TRANSLATORS: category for VLC input gestures
+	#TRANSLATORS: category for FishingPlanet input gestures
 	scriptCategory = _("FishingPlanet")
 
 
@@ -149,10 +149,11 @@ class AppModule(appModuleHandler.AppModule):
 		if baseRect is None:
 			return locationHelper.RectLTWH(0, 0, 0, 0)
 		
-		newLeft = int((baseRect.left + baseRect.width) * cfg['cropLeft'] / 100.0)
-		newTop = int((baseRect.top + baseRect.height) * cfg['cropUp'] / 100.0)
-		newWidth = int(baseRect.width - (baseRect.width * cfg['cropRight'] / 100.0))
-		newHeight = int(baseRect.height - (baseRect.height * cfg['cropDown'] / 100.0))
+		# Sommare offset alla posizione base, non moltiplicare tutto
+		newLeft = int(baseRect.left + (baseRect.width * cfg['cropLeft'] / 100.0))
+		newTop = int(baseRect.top + (baseRect.height * cfg['cropUp'] / 100.0))
+		newWidth = int(baseRect.width * (100 - cfg['cropLeft'] - cfg['cropRight']) / 100.0)
+		newHeight = int(baseRect.height * (100 - cfg['cropUp'] - cfg['cropDown']) / 100.0)
 		
 		return locationHelper.RectLTWH(newLeft, newTop, newWidth, newHeight)
 
@@ -161,10 +162,9 @@ class AppModule(appModuleHandler.AppModule):
 		Loop principale di scansione OCR.
 		Esegue scansioni continue finché self.ocrActive è True.
 		"""
-		cfg = config.conf["fishingplanet_ocr"]
-		
 		while self.ocrActive:
 			try:
+				cfg = config.conf["fishingplanet_ocr"]
 				self.performOCR()
 				time.sleep(cfg["interval"])
 			except Exception as e:
